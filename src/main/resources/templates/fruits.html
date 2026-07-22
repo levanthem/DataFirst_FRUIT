@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>fruit List</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+
+<body class="red-bg">
+  <div class="header-right-global">
+    <span class="user-greeting yellow-label">Hello, <span th:text="${session.loggedInUser.getEmail()}"></span></span>
+    <a th:href="@{/logout}" class="transparent-button logout-button">Logout</a>
+  </div>
+
+  <div class="container">
+    <h1 class="yellow-label">fruit List</h1>
+
+    <div class="fruits-content-wrapper">
+      <div class="top-controls">
+        <form th:action="@{/fruits}" method="get" class="search-form">
+          <input type="text" name="keyword" placeholder="Search by name or author"/>
+          <button type="submit" class="transparent-button">Search</button>
+        </form>
+
+        </div>
+
+      <div th:if="${session.loggedInUser.role == 1}" class="admin-controls">
+        <a th:href="@{/fruits/create}" class="transparent-button create-button">Add New fruit</a>
+      </div>
+
+      <div th:if="${fruits.isEmpty() and param.keyword != null}" class="no-results-message">
+        No products found matching keyword "<span th:text="${param.keyword}"></span>".
+      </div>
+
+      <div class="fruits-table-container">
+        <table>
+          <thead>
+          <tr>
+            <th class="yellow-label">Fruit Name</th>
+            <th class="yellow-label">Description</th>
+            <th class="yellow-label">Price</th>
+            <th class="yellow-label">Expired Date</th>
+            <th class="yellow-label">Category</th>
+           
+            <th class="yellow-label" th:if="${session.loggedInUser.role == 1}">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="fruit : ${fruits}">
+            <td th:text="${fruit.name}"></td>
+            <td th:text="${fruit.description}"></td>
+            <td th:text="${fruit.price}"></td>
+            <td th:text="${fruit.expiredDate}"></td>
+            <td th:text="${fruit.category.getId()}"></td>
+            <td th:if="${session.loggedInUser.role == 1}">
+              <a th:href="@{'/fruits/edit/' + ${fruit.id}}" class="transparent-button">Edit</a>
+              <a th:href="@{'/fruits/delete/' + ${fruit.id}}" class="transparent-button"
+                 onclick="return confirm('Are you sure you want to delete this fruit?');">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 them.levan. All rights reserved.</p>
+  </footer>
+</body>
+</html>
