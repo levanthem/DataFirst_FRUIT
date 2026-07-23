@@ -8,5 +8,8 @@ import java.util.List;
 public interface FruitRepository extends JpaRepository<Fruit, Integer> {
 //    List<Fruit> getAllByOrderByDesc();
 
-    List<Fruit> searchAllByNameContainingIgnoreCase(String keyword, String keyword1);
+    List<Fruit> searchAllByNameContainingIgnoreCase(String keyword);
+
+
+    boolean existsByName(String name);
 }

@@ -141,6 +141,11 @@ public class FruitController {
         //save xong trả về trang books, show danh sách có book mới, hoặc book đã đc cập nhật!!!
 
         //NẾU CÓ LỖI NHẬP TRONG QUÁ TRÌNH BINDING, THÌ VÒNG LẠI MÀN HÌNH NHẬP
+        System.out.println("formMode = " + formMode);
+        System.out.println("fruit name = " + fruit.getName());
+        System.out.println("has error = " + result.hasErrors());
+        System.out.println("id = " + fruit.getId());
+
         if (result.hasErrors()) {
 
             //gởi thêm cates khi ở màn hình show error
@@ -157,7 +162,7 @@ public class FruitController {
         //TODO: KEY TRÙNG KHI TẠO MỚI...
         if (formMode.equals("new")) {
             //check key trùng...
-            if (fruitService.existsFruit(fruit.getId())) {
+            if (fruitService.existsFruit(fruit.getName())) {
                 //trùng key rồi, ko save đc, phải chửi, vòng lại màn hình nhập
                 //gởi thêm cates khi ở màn hình show error
                 model.addAttribute("cates", categoryService.getAllCategories() );

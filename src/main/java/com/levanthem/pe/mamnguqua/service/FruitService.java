@@ -47,13 +47,13 @@ public class FruitService {
     //search...
     public List<Fruit> searchFruitByName(String keyword) {
 
-        return fruitRepo.searchAllByNameContainingIgnoreCase(keyword, keyword);
+        return fruitRepo.searchAllByNameContainingIgnoreCase(keyword);
     }
 
     //HÀM KHÁC... KIỂM TRA SỰ TỒN TẠI CỦA 1 ROW BOOK THEO ID
     //            THAY VÌ TÌM 1 DÒNG, TRẢ RA NULL HAY DÒNG TÌM THẤY
-    public boolean existsFruit(Integer id) {
-        return fruitRepo.existsById(id);
+    public boolean existsFruit(String name) {
+        return fruitRepo.existsByName(name);
     }                   //hàm tự sinh của JPA Repo
 
 }
